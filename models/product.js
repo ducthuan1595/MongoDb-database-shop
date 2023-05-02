@@ -33,6 +33,7 @@ class Product {
 
   static fetchAll() {
     const db = getDb();
+    console.log(db)
     return db
       .collection('products')
       .find()

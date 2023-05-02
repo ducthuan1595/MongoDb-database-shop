@@ -5,11 +5,11 @@ let _db;
 
 const mongoConnect = callback => {
   MongoClient.connect(
-    'mongodb://localhost:27017'
+    'mongodb+srv://thuantruong:gMOcUbEFedwxY8RV@cluster0.gl2bqhl.mongodb.net/shops?retryWrites=true&w=majority'
   )
     .then(client => {
       console.log('Connected!');
-      _db = client.db('shop');
+      _db = client.db();
       callback();
     })
     .catch(err => {
@@ -27,3 +27,5 @@ const getDb = () => {
 
 exports.mongoConnect = mongoConnect;
 exports.getDb = getDb;
+
+// mongodb+srv://thuantruong:<password>@cluster0.gl2bqhl.mongodb.net/?retryWrites=true&w=majority

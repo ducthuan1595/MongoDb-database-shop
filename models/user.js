@@ -4,8 +4,8 @@ const getDb = require('../util/database').getDb;
 const ObjectId = mongodb.ObjectId;
 
 class User {
-  constructor(username, email, cart, id) {
-    this.name = username;
+  constructor(name, email, cart, id) {
+    this.name = name;
     this.email = email;
     this.cart = cart; // {items: []}
     this._id = id;
@@ -22,10 +22,11 @@ class User {
     });
     let newQuantity = 1;
     const updatedCartItems = [...this.cart.items];
-
+    
     if (cartProductIndex >= 0) {
       newQuantity = this.cart.items[cartProductIndex].quantity + 1;
       updatedCartItems[cartProductIndex].quantity = newQuantity;
+      console.log('update-cart', updatedCartItems)
     } else {
       updatedCartItems.push({
         productId: new ObjectId(product._id),
@@ -111,12 +112,12 @@ class User {
   }
 
   static findById(userId) {
+    console.log('id', new ObjectId(userId))
     const db = getDb();
     return db
       .collection('users')
-      .findOne({ _id: new ObjectId(userId) })
+      .findOne({ _id: new ObjectId(userId)})
       .then(user => {
-        console.log(user);
         return user;
       })
       .catch(err => {
